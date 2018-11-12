@@ -2,12 +2,16 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import classNames from 'classnames'
+import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 
 // icons
 import SearchIcon from '@material-ui/icons/Search'
+import HomeIcon from '@material-ui/icons/Home'
+import DescriptionIcon from '@material-ui/icons/Description'
+import InfoIcon from '@material-ui/icons/Info'
 
-import { Link, withRouter } from 'react-router-dom'
+import { NavLink, withRouter } from 'react-router-dom'
 
 import log from '../../../utils/log'
 
@@ -26,50 +30,62 @@ const styles = theme => ({
     justifyContent: 'space-between',
   },
   toolbar: {
-    padding: '5px 20px',
+    padding: '5px 24px',
     color: themeVariables.colors.snow,
     fontWeight: 300,
     background: themeVariables.colors.primaryLight,
     boxShadow: '0 2px 10px 0 rgba(0,0,0,0.4)',
   },
   title: {
+    color: themeVariables.colors.snow,
     padding: '0 20px',
-    fontSize: 18,
+    fontSize: 20,
   },
   navTabs: {
     paddingRight: 0,
   },
+  navTabsBtn: {
+    padding: 0,
+  },
   navTabsItem: {
+    fontSize: 14,
+    padding: '5px 10px',
+    textDecoration: 'none',
     color: themeVariables.colors.textDark,
   },
   navTabsItemActive: {
     color: themeVariables.colors.snow,
   },
+  navTabsItemIcon: {
+    height: 18,
+    marginRight: 2,
+  },
 })
 
-const navLinks = [
-  { icon: SearchIcon, page: 'Home', link: '/home'},
-  { icon: SearchIcon, page: 'Directory', link: '/directory'},
-  { icon: SearchIcon, page: 'Search', link: '/search'},
-  { icon: SearchIcon, page: 'About', link: '/about'},
-];
+
 
 class ShopBar extends Component {
   render () {
-    const { classes, user, match } = this.props
+    const { classes, user, match } = this.props;
     log.debug('ShopBar: ', user, match)
+    const navLinks = [
+      { icon: <HomeIcon className={classes.navTabsItemIcon} />, page: 'Home', link: '/home'},
+      { icon: <DescriptionIcon className={classes.navTabsItemIcon} />, page: 'Directory', link: '/directory'},
+      { icon: <SearchIcon className={classes.navTabsItemIcon} />, page: 'Search', link: '/search'},
+      { icon: <InfoIcon className={classes.navTabsItemIcon} />, page: 'About', link: '/about'},
+    ]
     return (
       <div className={classes.root}>
         <div className={classes.header}></div>
         <div className={classNames(classes.flexRow, classes.toolbar)}>
-          <div className={classes.title}>Shop Module</div>
+          <Typography variant='h5' className={classes.title}>Shop Module</Typography>
           <div className={classNames(classes.flexRow, classes.navTabs)}>
             {navLinks && navLinks.map((item, i) => (
               <Button key={i} className={classes.navTabsBtn}>
-                <Link activeClassName={classes.navTabsItemActive} className={classes.navTabsItem} to={match.url + item.link}>
+                <NavLink activeClassName={classes.navTabsItemActive} className={classNames(classes.flexRow, classes.navTabsItem)} to={match.url + item.link}>
                   {item.icon}
-                  {item.page && <span>{item.page}</span>}
-                </Link>
+                  {item.page}
+                </NavLink>
               </Button>
             ))}
           </div>

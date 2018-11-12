@@ -9,6 +9,7 @@ export const themeVariables = {
     primary: '#ff4851',
     primaryLight: '#db4e26',
     textDark: '#333333',
+    lightGrayBg: '#d1d1d1',
   }
 }
 
