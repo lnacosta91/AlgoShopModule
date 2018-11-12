@@ -1,0 +1,21 @@
+{
+  "name": "AlgoShopModule",
+  "version": "2.0.1",
+  "description": "Advanced Algos Shop Module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdvancedAlgos/AlgoShopModule.git.git"
+  },
+  "keywords": [
+    "Advanced Algos"
+  ],
+  "author": "JK",
+  "license": "SEE LICENSE IN LICENSE.MD",
+  "bugs": {
+    "url": "https://github.com/AdvancedAlgos/AlgoShopModule.git/issues"
+  },
+  "homepage": "https://github.com/AdvancedAlgos/AlgoShopModule.git#readme"
+}
