@@ -33,12 +33,12 @@ class App extends Component {
   }
 
   render () {
-    const { match } = this.props;
+    const { match, auth } = this.props;
     return (
       <div className='App'>
         <ShopBar />
         <Switch>
-          <Route exact path={`${match.url}/home`} component={ShopHome} />
+          <Route exact path={`${match.url}/home`} render={(props) => <ShopHome auth={auth} {...props} />}/>
           <Route exact path={`${match.url}/directory`} component={ShopDirectory} />
           <Route exact path={`${match.url}/search`} component={ShopSearch} />
           <Route exact path={`${match.url}/about`} component={ShopAbout} />

@@ -176,22 +176,21 @@ class ShopHome extends Component {
   }
   
   tryBuy() {
-    const { user } = this.props;
+    const { user, auth } = this.props;
     if (!user) {
-      
+      auth.login();
     }
   }
 
   render () {
     const { alg, btc, showTransaction } = this.state;
-    const { classes } = this.props;
+    const { user, auth, classes } = this.props;
     let pendingOrder = false;
     for (let i = 0; i < transactions.length; i++) {
       if (transactions[i].status === 'pending') {
         pendingOrder = transactions[i]; break;
       }
     }
-    const user = {};
     return (
       <div className={classes.root}>
         <div className={classes.shopModulePageInner}>
