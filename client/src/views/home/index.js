@@ -12,7 +12,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import moment from 'moment'
 
 // icons
-import SearchIcon from '@material-ui/icons/Search'
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 
 import { NavLink } from 'react-router-dom'
 
@@ -54,7 +54,7 @@ const transactions = [
 
 const styles = theme => ({
   root: {
-    padding: '25px 50px',
+    padding: '40px 50px',
   },
   shopModulePageInner: {
     display: 'flex',
@@ -62,7 +62,19 @@ const styles = theme => ({
     alignItems: 'center',
   },
   errorInfoBlock: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     marginBottom: 20,
+    padding: '10px 20px',
+    width: 600,
+    flexGrow: 1,
+    flexShrink: 1,
+    background: themeVariables.colors.errorBg,
+    border: '1px solid '+themeVariables.colors.error,
+  },
+  pendingOrderBtn: {
+    color: themeVariables.colors.error,
   },
   shopBlock: {
     width: '100%',
@@ -88,16 +100,64 @@ const styles = theme => ({
     width: '50%',
     padding: '10px 20px',
   },
-  formCol: {
+  shopFormCol: {
     borderRight: '1px solid '+themeVariables.colors.lightGrayBg,
     padding: '20px 40px',
+  },
+  textFieldLabel: {
+    fontSize: 18,
+  },
+  textField: {
+    marginBottom: 25,
+  },
+  roundedBtn: {
+    width: '100%',
+    borderRadius: 20,
+    background: themeVariables.colors.primary,
+    fontSize: 20,
+    padding: 0,
+    color: themeVariables.colors.snow,
+    textTransform: 'uppercase',
+  },
+  simpleAccordion: {
+    boxShadow: 'none',
+    borderBottom: '1px solid '+themeVariables.colors.lightGrayBg,
+  },
+  simpleAccordionSummary: {
+    padding: 0,
+    minHeight: 24,
   },
   transactionsTable: {
     borderCollapse: 'collapse',
     width: '100%',
     maxWidth: 940,
     marginTop: 30,
-  }
+  },
+  tableTh: {
+    padding: '5px 10px',
+    border: '1px solid '+themeVariables.colors.lightGrayBg,
+  },
+  tableThTxt: {
+    fontWeight: 'bold',
+  },
+  tableTd: {
+    padding: '5px 10px',
+    border: '1px solid '+themeVariables.colors.lightGrayBg,
+    textAlign: 'center',
+  },
+  smallTxt: {
+    fontSize: 12,
+  },
+  pending: {
+    color: themeVariables.colors.medium,
+  },
+  error: {
+    color: themeVariables.colors.error,
+  },
+  statusBtn: {
+    fontWeight: 'bold',
+    textDecoration: 'underline',
+  },
 })
 
 class ShopHome extends Component {
@@ -132,38 +192,40 @@ class ShopHome extends Component {
         <div className={classes.shopModulePageInner}>
           {user && pendingOrder && <div className={classes.errorInfoBlock}>
             <Typography>You have a pending order to fulfil:</Typography>
-            <Button onClick={()=>this.setState({ showTransaction: pendingOrder })}>order details</Button>
+            <Button className={classes.pendingOrderBtn} onClick={()=>this.setState({ showTransaction: pendingOrder })}>order details</Button>
           </div>}
           <div className={classes.shopBlock}>
             <div className={classNames(classes.shopBlockRow, classes.shopBlockHeadRow)}>
-              <Typography className={classNames(classes.shopBlockCol, classes.shopBlockHeadCol)}>ALG/USD 0.10</Typography>
-              <Typography className={classes.shopBlockCol}>ALG/BTC 0.000137</Typography>
+              <Typography variant='h6' className={classNames(classes.shopBlockCol, classes.shopBlockHeadCol)}>ALG/USD 0.10</Typography>
+              <Typography variant='h6' className={classes.shopBlockCol}>ALG/BTC 0.000137</Typography>
             </div>
             <div className={classes.shopBlockRow}>
               <div className={classNames(classes.shopBlockCol, classes.shopFormCol)}>
                 <Typography className={classes.textFieldLabel}>I want to buy</Typography>
                 <TextField
-                  className="text-field"
+                  className={classes.textField}
                   type={'number'}
                   value={alg}
                   InputProps={{
                     endAdornment: <InputAdornment position="end">ALG</InputAdornment>,
                   }}
+                  onChange={(e) => { this.setState({ alg: e.target.value }); }}
                 />
                 <Typography className={classes.textFieldLabel}>I will pay with</Typography>
                 <TextField
-                  className="text-field"
+                  className={classes.textField}
                   type={'number'}
                   value={btc}
                   InputProps={{
                     endAdornment: <InputAdornment position="end">BTC</InputAdornment>,
                   }}
+                  onChange={(e) => { this.setState({ btc: e.target.value }); }}
                 />
                 <Button className={classes.roundedBtn} onClick={() => { this.tryBuy(); } }>Buy</Button>
               </div>
               <div className={classNames(classes.shopBlockCol, classes.infoCol)}>
                 <ExpansionPanel className={classes.simpleAccordion}>
-                  <ExpansionPanelSummary expandIcon={<i className="fa fa-caret-down" />}>
+                  <ExpansionPanelSummary className={classes.simpleAccordionSummary} expandIcon={<ArrowDropDownIcon />}>
                     <Typography>What are the fees?</Typography>
                   </ExpansionPanelSummary>
                   <ExpansionPanelDetails>
@@ -171,7 +233,7 @@ class ShopHome extends Component {
                   </ExpansionPanelDetails>
                 </ExpansionPanel>
                 <ExpansionPanel className={classes.simpleAccordion}>
-                  <ExpansionPanelSummary expandIcon={<i className="fa fa-caret-down" />}>
+                  <ExpansionPanelSummary className={classes.simpleAccordionSummary} expandIcon={<ArrowDropDownIcon />}>
                     <Typography>What is the exchange rate?</Typography>
                   </ExpansionPanelSummary>
                   <ExpansionPanelDetails>
@@ -184,36 +246,36 @@ class ShopHome extends Component {
           {user && transactions && transactions.length > 0 && <table className={classes.transactionsTable}>
             <thead>
               <tr>
-                <th><Typography>When</Typography></th>
-                <th><Typography>Rate</Typography></th>
-                <th><Typography>Amount</Typography></th>
-                <th><Typography>Status</Typography></th>
-                <th><Typography>Order</Typography></th>
+                <th className={classes.tableTh}><Typography className={classes.tableThTxt}>When</Typography></th>
+                <th className={classes.tableTh}><Typography className={classes.tableThTxt}>Rate</Typography></th>
+                <th className={classes.tableTh}><Typography className={classes.tableThTxt}>Amount</Typography></th>
+                <th className={classes.tableTh}><Typography className={classes.tableThTxt}>Status</Typography></th>
+                <th className={classes.tableTh}><Typography className={classes.tableThTxt}>Order</Typography></th>
               </tr>
             </thead>
             <tbody>
               {transactions.map((transaction, i) => (
                 <tr key={i}>
-                  <td className="date-col">
-                    <Typography>{moment(transaction.date).format('MMMM DD YYYY')} <br /> {moment(transaction.date).format('hh:mm A')}</Typography>
+                  <td className={classNames(classes.tableTd, classes.dateCol)}>
+                    <Typography className={classes.smallTxt}>{moment(transaction.date).format('MMMM DD YYYY')} <br /> {moment(transaction.date).format('hh:mm A')}</Typography>
                   </td>
-                  <td className="rate-col">
-                    <Typography>
+                  <td className={classNames(classes.tableTd, classes.rateCol)}>
+                    <Typography className={classes.smallTxt}>
                       <span>{transaction.currency}/USD {transaction.rateUSD.toFixed(2)}</span> <br />
                       <span>{transaction.rateCurrency}/USD {(transaction.rateUSD*transaction.rate).toFixed(8)}</span>
                     </Typography>
                   </td>
-                  <td className="amount-col">
+                  <td className={classNames(classes.tableTd, classes.amountCol)}>
                     <Typography>
                       <strong>{transaction.amount.toFixed(2)} {transaction.currency}</strong> <br />
-                      <span>(USD {transaction.USD.toFixed(2)}) {transaction.amount*transaction.rate} {transaction.rateCurrency}</span>
+                      <span className={classes.smallTxt}>(USD {transaction.USD.toFixed(2)}) {transaction.amount*transaction.rate} {transaction.rateCurrency}</span>
                     </Typography>
                   </td>
-                  <td className={'status-col ' + transaction.status}>
-                    <Button onClick={()=>this.setState({ showTransaction: transaction })}>{transaction.status}</Button>
+                  <td className={classNames(classes.tableTd, classes.transactionCol)}>
+                    <Button className={classNames(classes.statusBtn, classes[transaction.status])} onClick={()=>this.setState({ showTransaction: transaction })}>{transaction.status}</Button>
                   </td>
-                  <td className={'order-col ' + transaction.status}>
-                    <Button onClick={()=>this.setState({ showTransaction: transaction })}>details</Button> {transaction.status === 'pending' && '|'} {transaction.status === 'pending' && <Button>cancel</Button>}
+                  <td className={classNames(classes.tableTd, classes.orderCol)}>
+                    <Button className={classNames(classes.statusBtn, classes[transaction.status])} onClick={()=>this.setState({ showTransaction: transaction })}>details</Button>{transaction.status === 'pending' && <Button className={classes.statusBtn} >cancel</Button>}
                   </td>
                 </tr>
               ))}

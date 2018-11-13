@@ -10,6 +10,9 @@ export const themeVariables = {
     primaryLight: '#db4e26',
     textDark: '#333333',
     lightGrayBg: '#d1d1d1',
+    errorBg: '#ffebeb',
+    error: '#ff4851',
+    medium: '#ffb800',
   }
 }
 
