@@ -11,6 +11,8 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import moment from 'moment'
 
+import TransactionModal from '../modals/TransactionsModal'
+
 // icons
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 
@@ -28,7 +30,8 @@ const transactions = [
     rateCurrency: 'BTC',
     rateUSD: 0.1,
     USD: 12.7,
-    status: 'pending'
+    status: 'pending',
+    destination: '0x204B8Ab94966dc4545eD15fE62dA27065e2aBA7D'
   },
   {
     date: moment('10-11-2018 12:38 AM').valueOf(),
@@ -38,7 +41,8 @@ const transactions = [
     rateCurrency: 'BTC',
     rateUSD: 0.1,
     USD: 12.7,
-    status: 'completed'
+    status: 'completed',
+    destination: '39Ndfo292mBi230dc4545eD15fE62dsm9sN8dn2n29'
   },
   {
     date: moment('09-09-2018 01:22 PM').valueOf(),
@@ -48,7 +52,8 @@ const transactions = [
     rateCurrency: 'BTC',
     rateUSD: 0.11,
     USD: 13.7,
-    status: 'error'
+    status: 'error',
+    destination: '4bw0Djs8dsSu3NB30nmc4545eD15fE622s2jxmNDi'
   },
 ];
 
@@ -281,7 +286,7 @@ class ShopHome extends Component {
               ))}
             </tbody>
           </table>}
-          {/* <TransactionModal transaction={showTransaction} open={showTransaction} /> */}
+          <TransactionModal transaction={showTransaction} open={showTransaction} onClose={()=>{ this.setState({ showTransaction: false }) }} />
         </div>
       </div>
     )
