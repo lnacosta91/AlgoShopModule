@@ -30,7 +30,7 @@ class Support extends Component {
         return (
             <React.Fragment>
                 <BannerTopBar
-                    size='big'
+                    size='medium'
                     title='Support'
                     text='Here you can contact with our help desk.'
                     backgroundUrl='https://www.advancedalgos.net/img/photos/algo-shop.jpg'
