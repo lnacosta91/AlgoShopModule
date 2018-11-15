@@ -4,10 +4,10 @@ import { Route, Switch } from 'react-router-dom'
 import { MuiPickersUtilsProvider } from 'material-ui-pickers'
 import LuxonUtils from '@date-io/luxon'
 
-import Home from './components/Home'
-import Buy from './components/Buy'
-import History from './components/History'
-import Support from './components/Support'
+import Home from './views/Home'
+import Buy from './views/buy/index'
+import History from './views/history/index'
+import Support from './views/support/index'
 
 const App = () => (
     <MuiPickersUtilsProvider utils={LuxonUtils}>

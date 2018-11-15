@@ -8,7 +8,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import BannerTopBar from './BannerTopBar'
+import TopBar from '../nav'
 
 import moment from "moment/moment";
 import Button from '@material-ui/core/Button';
@@ -16,7 +16,7 @@ import Button from '@material-ui/core/Button';
 // icons
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 
-import { themeVariables, globalStyles } from '../theme'
+import { themeVariables, globalStyles } from '../../theme'
 
 
 const transactions = [
@@ -135,7 +135,7 @@ const styles = theme => ({
   }
 });
 
-class Buy extends Component {
+class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -163,7 +163,7 @@ class Buy extends Component {
     }
     return (
   <React.Fragment>
-      <BannerTopBar
+      <TopBar
           size='medium'
           title='Buy Algos'
           text='Buy your Algo Tokens with Bitcoin.'
@@ -231,10 +231,10 @@ class Buy extends Component {
   }
 }
 
-Buy.propTypes = {
+Index.propTypes = {
   classes: PropTypes.object.isRequired,
   user: PropTypes.object,
   match: PropTypes.object
 }
 
-export default withStyles(styles)(Buy)
+export default withStyles(styles)(Index)

@@ -10,7 +10,7 @@ import moment from 'moment'
 import FileCopyIcon from '@material-ui/icons/FileCopy'
 
 
-import { themeVariables, globalStyles } from '../theme'
+import { themeVariables, globalStyles } from '../../../theme'
 
 const styles = theme => ({
   modal: {

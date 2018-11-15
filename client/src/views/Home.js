@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import BannerTopBar from './BannerTopBar'
+import TopBar from './nav'
 
 class Home extends Component {
 
     render () {
         return (
             <React.Fragment>
-                <BannerTopBar
+                <TopBar
                     size='big'
                     title='Shop Module'
                     text='Here you can buy Algo Tokens from the Advanced Algos Platform.'

@@ -12,8 +12,8 @@ import Paper from '@material-ui/core/Paper';
 import moment from "moment/moment";
 import Button from '@material-ui/core/Button';
 
-import TransactionModal from './TransactionsModal'
-import BannerTopBar from './BannerTopBar'
+import TransactionModal from './modals/TransactionsModal'
+import TopBar from '../nav'
 
 const styles = theme => ({
     root: {
@@ -65,7 +65,7 @@ const transactions = [
   },
 ];
 
-class History extends Component {
+class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -84,7 +84,7 @@ class History extends Component {
     }
     return (
       <React.Fragment>
-          <BannerTopBar
+          <TopBar
               size='medium'
               title='Buying History'
               text='Here you can see the registry of your buyings.'
@@ -126,10 +126,10 @@ class History extends Component {
   }
 }
 
-History.propTypes = {
+Index.propTypes = {
   classes: PropTypes.object.isRequired,
   user: PropTypes.object,
   match: PropTypes.object
 };
 
-export default withStyles(styles)(History)
+export default withStyles(styles)(Index)

@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 
-import BannerTopBar from './BannerTopBar'
+import TopBar from '../nav'
 
 const styles = theme => ({
     root: {
@@ -23,13 +23,13 @@ const styles = theme => ({
     }
 })
 
-class Support extends Component {
+class Index extends Component {
 
     render () {
         const { classes } = this.props
         return (
             <React.Fragment>
-                <BannerTopBar
+                <TopBar
                     size='medium'
                     title='Support'
                     text='Here you can contact with our help desk.'
@@ -47,4 +47,4 @@ class Support extends Component {
 
 export default compose(
     withStyles(styles)
-)(Support)
+)(Index)

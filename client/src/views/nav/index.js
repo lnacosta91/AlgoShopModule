@@ -1,7 +1,7 @@
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
 
-const BannerTopBar = ({
+const TopBar = ({
   size,
   backgroundUrl,
   title,
@@ -15,4 +15,4 @@ const BannerTopBar = ({
   </div>
 )
 
-export default BannerTopBar
+export default TopBar
