@@ -3,26 +3,25 @@ import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import classNames from 'classnames'
 import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import moment from 'moment'
+import BannerTopBar from './BannerTopBar'
 
-import TransactionModal from '../modals/TransactionsModal'
+import moment from "moment/moment";
+import Button from '@material-ui/core/Button';
 
 // icons
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
-
-import { NavLink } from 'react-router-dom'
 
 import { themeVariables, globalStyles } from '../theme'
 
 
 const transactions = [
   {
+    id:1,
     date: moment('10-17-2018 04:52 PM').valueOf(),
     amount: 127,
     currency: 'ALG',
@@ -34,6 +33,7 @@ const transactions = [
     destination: '0x204B8Ab94966dc4545eD15fE62dA27065e2aBA7D'
   },
   {
+      id:2,
     date: moment('10-11-2018 12:38 AM').valueOf(),
     amount: 127,
     currency: 'ALG',
@@ -45,6 +45,7 @@ const transactions = [
     destination: '39Ndfo292mBi230dc4545eD15fE62dsm9sN8dn2n29'
   },
   {
+      id:3,
     date: moment('09-09-2018 01:22 PM').valueOf(),
     amount: 127,
     currency: 'ALG',
@@ -131,41 +132,10 @@ const styles = theme => ({
   simpleAccordionSummary: {
     padding: 0,
     minHeight: 24,
-  },
-  transactionsTable: {
-    borderCollapse: 'collapse',
-    width: '100%',
-    maxWidth: 940,
-    marginTop: 30,
-  },
-  tableTh: {
-    padding: '5px 10px',
-    border: '1px solid '+themeVariables.colors.lightGrayBg,
-  },
-  tableThTxt: {
-    fontWeight: 'bold',
-  },
-  tableTd: {
-    padding: '5px 10px',
-    border: '1px solid '+themeVariables.colors.lightGrayBg,
-    textAlign: 'center',
-  },
-  smallTxt: {
-    fontSize: 12,
-  },
-  pending: {
-    color: themeVariables.colors.medium,
-  },
-  error: {
-    color: themeVariables.colors.error,
-  },
-  statusBtn: {
-    fontWeight: 'bold',
-    textDecoration: 'underline',
-  },
-})
+  }
+});
 
-class ShopHome extends Component {
+class Buy extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -192,6 +162,13 @@ class ShopHome extends Component {
       }
     }
     return (
+  <React.Fragment>
+      <BannerTopBar
+          size='medium'
+          title='Buy Algos'
+          text='Buy your Algo Tokens with Bitcoin.'
+          backgroundUrl='https://www.advancedalgos.net/img/photos/algo-shop.jpg'
+      />
       <div className={classes.root}>
         <div className={classes.shopModulePageInner}>
           {user && pendingOrder && <div className={classes.errorInfoBlock}>
@@ -247,55 +224,17 @@ class ShopHome extends Component {
               </div>
             </div>
           </div>
-          {user && transactions && transactions.length > 0 && <table className={classes.transactionsTable}>
-            <thead>
-              <tr>
-                <th className={classes.tableTh}><Typography className={classes.tableThTxt}>When</Typography></th>
-                <th className={classes.tableTh}><Typography className={classes.tableThTxt}>Rate</Typography></th>
-                <th className={classes.tableTh}><Typography className={classes.tableThTxt}>Amount</Typography></th>
-                <th className={classes.tableTh}><Typography className={classes.tableThTxt}>Status</Typography></th>
-                <th className={classes.tableTh}><Typography className={classes.tableThTxt}>Order</Typography></th>
-              </tr>
-            </thead>
-            <tbody>
-              {transactions.map((transaction, i) => (
-                <tr key={i}>
-                  <td className={classNames(classes.tableTd, classes.dateCol)}>
-                    <Typography className={classes.smallTxt}>{moment(transaction.date).format('MMMM DD YYYY')} <br /> {moment(transaction.date).format('hh:mm A')}</Typography>
-                  </td>
-                  <td className={classNames(classes.tableTd, classes.rateCol)}>
-                    <Typography className={classes.smallTxt}>
-                      <span>{transaction.currency}/USD {transaction.rateUSD.toFixed(2)}</span> <br />
-                      <span>{transaction.rateCurrency}/USD {(transaction.rateUSD*transaction.rate).toFixed(8)}</span>
-                    </Typography>
-                  </td>
-                  <td className={classNames(classes.tableTd, classes.amountCol)}>
-                    <Typography>
-                      <strong>{transaction.amount.toFixed(2)} {transaction.currency}</strong> <br />
-                      <span className={classes.smallTxt}>(USD {transaction.USD.toFixed(2)}) {transaction.amount*transaction.rate} {transaction.rateCurrency}</span>
-                    </Typography>
-                  </td>
-                  <td className={classNames(classes.tableTd, classes.transactionCol)}>
-                    <Button className={classNames(classes.statusBtn, classes[transaction.status])} onClick={()=>this.setState({ showTransaction: transaction })}>{transaction.status}</Button>
-                  </td>
-                  <td className={classNames(classes.tableTd, classes.orderCol)}>
-                    <Button className={classNames(classes.statusBtn, classes[transaction.status])} onClick={()=>this.setState({ showTransaction: transaction })}>details</Button>{transaction.status === 'pending' && <Button className={classes.statusBtn} >cancel</Button>}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>}
-          <TransactionModal transaction={showTransaction} open={showTransaction} onClose={()=>{ this.setState({ showTransaction: false }) }} />
         </div>
       </div>
+  </React.Fragment>
     )
   }
 }
 
-ShopHome.propTypes = {
+Buy.propTypes = {
   classes: PropTypes.object.isRequired,
   user: PropTypes.object,
   match: PropTypes.object
 }
 
-export default withStyles(styles)(ShopHome)
+export default withStyles(styles)(Buy)

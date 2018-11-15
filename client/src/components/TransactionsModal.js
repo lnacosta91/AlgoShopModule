@@ -9,6 +9,7 @@ import moment from 'moment'
 
 import FileCopyIcon from '@material-ui/icons/FileCopy'
 
+
 import { themeVariables, globalStyles } from '../theme'
 
 const styles = theme => ({
@@ -89,8 +90,8 @@ class TransactionModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: Boolean(props.open),
-    };
+          open: Boolean(props.open),
+      };
   }
     
   componentWillReceiveProps(nextProps) {
