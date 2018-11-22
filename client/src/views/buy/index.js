@@ -235,6 +235,6 @@ Index.propTypes = {
   classes: PropTypes.object.isRequired,
   user: PropTypes.object,
   match: PropTypes.object
-}
+};
 
 export default withStyles(styles)(Index)
