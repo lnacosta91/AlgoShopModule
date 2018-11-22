@@ -1,5 +1,5 @@
 
-import { AuditLog } from '../../models'
+import { AuditLog } from '../../models/index'
 import logger from '../../config/logger'
 
 const saveAuditLog = (keyId, action, context, details) => {

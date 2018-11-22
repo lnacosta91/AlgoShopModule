@@ -1,4 +1,4 @@
-const MODULE_NAME = 'token-decoder'
+const MODULE_NAME = 'token-decoder';
 
 /*
    JSON Web Token (JWT) is a compact, URL-safe means of representing
@@ -10,11 +10,11 @@ const MODULE_NAME = 'token-decoder'
    (MAC) and/or encrypted.
 */
 
-const JSONWebToken = require('jsonwebtoken') // A library to deal with JSON Web Tokens.
-const webTokenLibrary = require('jwks-rsa')   // A library to retrieve RSA signing keys from a JWKS (JSON Web Key Set) endpoint.
+const JSONWebToken = require('jsonwebtoken'); // A library to deal with JSON Web Tokens.
+const webTokenLibrary = require('jwks-rsa');   // A library to retrieve RSA signing keys from a JWKS (JSON Web Key Set) endpoint.
 
-const AUTH_CONFIG = require('./Auth0')       // Config where we have our secrets.
-const logger = require('../utils/logger')
+const AUTH_CONFIG = require('./Auth0');       // Config where we have our secrets.
+const logger = require('../../utils/logger');
 
 const decoder = webTokenLibrary({
   cache: true,
@@ -38,11 +38,11 @@ function decodeToken (token, callBackFunction) {
     ) {
       if (global.ERROR_LOG === true) { logger.error('[ERROR] ' + MODULE_NAME + ' -> decodeToken -> Invalid Token. ') }
       if (global.ERROR_LOG === true) { logger.error('[ERROR] ' + MODULE_NAME + ' -> decodeToken -> token = ' + token) }
-      callBackFunction(global.DEFAULT_FAIL_RESPONSE)
+      callBackFunction(global.DEFAULT_FAIL_RESPONSE);
       return
     }
 
-    decoder.getSigningKey(header.kid, onKeyReady)
+    decoder.getSigningKey(header.kid, onKeyReady);
 
     function onKeyReady (err, key) {
       if (global.INFO_LOG === true) { logger.info('[INFO] ' + MODULE_NAME + ' -> decodeToken -> onKeyReady -> Entering function.') }
@@ -51,7 +51,7 @@ function decodeToken (token, callBackFunction) {
         if (global.ERROR_LOG === true) { logger.error('[ERROR] ' + MODULE_NAME + ' -> decodeToken -> onKeyReady -> Error getting the key. ') }
         if (global.ERROR_LOG === true) { logger.error('[ERROR] ' + MODULE_NAME + ' -> decodeToken -> onKeyReady -> key = ' + key) }
         if (global.ERROR_LOG === true) { logger.error('[ERROR] ' + MODULE_NAME + ' -> decodeToken -> onKeyReady -> err = ' + err) }
-        callBackFunction(global.DEFAULT_FAIL_RESPONSE)
+        callBackFunction(global.DEFAULT_FAIL_RESPONSE);
         return
       }
 
@@ -68,7 +68,7 @@ function decodeToken (token, callBackFunction) {
           if (global.ERROR_LOG === true) { logger.error('[ERROR] ' + MODULE_NAME + ' -> decodeToken -> onKeyReady -> onVerified -> Error verifying. ') }
           if (global.ERROR_LOG === true) { logger.error('[ERROR] ' + MODULE_NAME + ' -> decodeToken -> onKeyReady -> onVerified -> decoded = ' + decoded) }
           if (global.ERROR_LOG === true) { logger.error('[ERROR] ' + MODULE_NAME + ' -> decodeToken -> onKeyReady -> onVerified -> err = ' + err) }
-          callBackFunction(global.DEFAULT_FAIL_RESPONSE)
+          callBackFunction(global.DEFAULT_FAIL_RESPONSE);
           return
         }
 
@@ -77,7 +77,7 @@ function decodeToken (token, callBackFunction) {
     }
   } catch (err) {
     if (global.ERROR_LOG === true) { logger.error('[ERROR] ' + MODULE_NAME + ' -> decodeToken -> err = ' + err) }
-    callBackFunction(global.DEFAULT_FAIL_RESPONSE)
+    callBackFunction(global.DEFAULT_FAIL_RESPONSE);
   }
 }
 

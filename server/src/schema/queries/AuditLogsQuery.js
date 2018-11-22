@@ -6,10 +6,10 @@ import {
 
 import {
   AuthentificationError
-} from '../../errors'
+} from '../../errors/index'
 
-import { AuditLogType } from '../types'
-import { AuditLog } from '../../models'
+import { AuditLogType } from '../types/index'
+import { AuditLog } from '../../models/index'
 import logger from '../../config/logger'
 
 const args = {
@@ -17,7 +17,7 @@ const args = {
 };
 
 const resolve = (parent, { key }, context) => {
-  logger.debug('auditLogs -> Entering Fuction.')
+  logger.debug('auditLogs -> Entering Fuction.');
 
   if (!context.userId) {
     throw new AuthentificationError()
